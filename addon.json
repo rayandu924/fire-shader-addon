@@ -1,8 +1,8 @@
 {
   "metadata": {
     "name": "Fire Shader Effect",
-    "version": "1.0.0",
-    "description": "Effet de feu animé en temps réel utilisant WebGL avec paramètres personnalisables",
+    "version": "1.2.0",
+    "description": "Effet de feu VRAIMENT transparent animé en temps réel - WebGL avec alpha channel",
     "author": "MyWallpaper",
     "type": "effect",
     "categories": ["effect", "animation", "shader", "fire"]

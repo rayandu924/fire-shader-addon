@@ -50,11 +50,24 @@ class FireShaderAddon {
     }
     
     setupWebGL() {
-        this.gl = this.canvas.getContext('webgl2');
+        // Configuration WebGL avec support de la transparence
+        this.gl = this.canvas.getContext('webgl2', {
+            alpha: true,                // Active le canal alpha pour la transparence
+            premultipliedAlpha: false,  // Évite les problèmes de blending
+            antialias: true            // Améliore la qualité visuelle
+        });
+        
         if (!this.gl) {
             console.error('WebGL2 non supporté');
             return;
         }
+        
+        // Activer le blending pour la transparence
+        this.gl.enable(this.gl.BLEND);
+        this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
+        
+        // Configurer la couleur d'effacement transparente
+        this.gl.clearColor(0.0, 0.0, 0.0, 0.0);
         
         this.resize();
     }
@@ -245,14 +258,15 @@ class FireShaderAddon {
         this.gl.uniform1f(this.uniforms.time, currentTime);
         this.gl.uniform2fv(this.uniforms.resolution, [this.canvas.width, this.canvas.height]);
         
+        // Effacer avec transparence
+        this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+        
         // Conversion des couleurs
         const primaryRgb = this.hexToRgb(this.settings.primaryColor);
         const secondaryRgb = this.hexToRgb(this.settings.secondaryColor);
-        const backgroundRgb = this.hexToRgb(this.settings.backgroundColor);
         
         this.gl.uniform3fv(this.uniforms.primaryColor, primaryRgb);
         this.gl.uniform3fv(this.uniforms.secondaryColor, secondaryRgb);
-        this.gl.uniform3fv(this.uniforms.backgroundColor, backgroundRgb);
         
         this.gl.uniform1f(this.uniforms.intensity, this.settings.intensity);
         this.gl.uniform1f(this.uniforms.speed, this.settings.speed);
