@@ -10,10 +10,11 @@ class FireShaderAddon {
         this.settings = {
             primaryColor: '#FF6B35',    // Orange-rouge principal
             secondaryColor: '#FF0000',  // Rouge secondaire  
-            intensity: 0.9,             // Intensité du feu
+            intensity: 0.9,             // Intensité du feu (luminosité)
             speed: 0.2,                 // Vitesse d'animation
             scale: 7.0,                 // Échelle du bruit
             turbulence: 0.9,            // Turbulence
+            height: 1.0,                // Hauteur du feu
             opacity: 1.0                // Opacité globale
         };
         
@@ -113,6 +114,7 @@ class FireShaderAddon {
             uniform float speed;
             uniform float scale;
             uniform float turbulence;
+            uniform float height;
             uniform float opacity;
             
             in vec2 uv;
@@ -187,8 +189,8 @@ class FireShaderAddon {
                 // Couleur finale PURE - jamais de saturation, jamais de blanc forcé
                 vec3 finalColor = fireColor * intensity;  // Seulement l'intensité utilisateur
                 
-                // Alpha dynamique pour transparence réelle
-                float fireAlpha = smoothstep(0.0, 1.0, (fireIntensity - gradient + 0.3) * intensity);
+                // Alpha dynamique pour transparence réelle - hauteur contrôle la taille
+                float fireAlpha = smoothstep(0.0, 1.0, (fireIntensity - gradient + 0.3) * height);
                 
                 fragColor = vec4(finalColor, fireAlpha * opacity);
             }`;
@@ -222,6 +224,7 @@ class FireShaderAddon {
             speed: this.gl.getUniformLocation(this.program, 'speed'),
             scale: this.gl.getUniformLocation(this.program, 'scale'),
             turbulence: this.gl.getUniformLocation(this.program, 'turbulence'),
+            height: this.gl.getUniformLocation(this.program, 'height'),
             opacity: this.gl.getUniformLocation(this.program, 'opacity')
         };
     }
@@ -276,6 +279,7 @@ class FireShaderAddon {
         this.gl.uniform1f(this.uniforms.speed, this.settings.speed);
         this.gl.uniform1f(this.uniforms.scale, this.settings.scale);
         this.gl.uniform1f(this.uniforms.turbulence, this.settings.turbulence);
+        this.gl.uniform1f(this.uniforms.height, this.settings.height);
         this.gl.uniform1f(this.uniforms.opacity, this.settings.opacity);
         
         // Rendu
