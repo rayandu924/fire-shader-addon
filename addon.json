@@ -1,8 +1,8 @@
 {
   "metadata": {
     "name": "Fire Shader Effect",
-    "version": "1.2.0",
-    "description": "Effet de feu VRAIMENT transparent animé en temps réel - WebGL avec alpha channel",
+    "version": "1.3.0",
+    "description": "Effet de feu 100% TRANSPARENT - ZERO background - WebGL alpha pur - 6 paramètres seulement",
     "author": "MyWallpaper",
     "type": "effect",
     "categories": ["effect", "animation", "shader", "fire"]
@@ -19,12 +19,6 @@
       "label": "Couleur Secondaire",
       "description": "Couleur secondaire du feu (rouge foncé)",
       "default": "#FF0000"
-    },
-    "backgroundColor": {
-      "type": "color",
-      "label": "Couleur de Fond",
-      "description": "Couleur d'arrière-plan",
-      "default": "#000000"
     },
     "intensity": {
       "type": "range",

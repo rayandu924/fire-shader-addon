@@ -10,7 +10,6 @@ class FireShaderAddon {
         this.settings = {
             primaryColor: '#FF6B35',    // Orange-rouge principal
             secondaryColor: '#FF0000',  // Rouge secondaire  
-            backgroundColor: '#000000', // Fond
             intensity: 0.9,             // Intensité du feu
             speed: 0.2,                 // Vitesse d'animation
             scale: 7.0,                 // Échelle du bruit
@@ -109,7 +108,6 @@ class FireShaderAddon {
             uniform vec2 resolution;
             uniform vec3 primaryColor;
             uniform vec3 secondaryColor;
-            uniform vec3 backgroundColor;
             uniform float intensity;
             uniform float speed;
             uniform float scale;
@@ -182,10 +180,13 @@ class FireShaderAddon {
                 // Couleur finale avec gradient et intensité
                 vec3 finalColor = fireColor + vec3(fireIntensity - gradient);
                 
-                // Application de l'intensité globale et mélange avec le fond
-                finalColor = mix(backgroundColor, finalColor, intensity);
+                // Application de l'intensité globale avec transparence complète
+                finalColor = finalColor * intensity;
                 
-                fragColor = vec4(finalColor, opacity);
+                // Alpha dynamique pour transparence réelle
+                float fireAlpha = smoothstep(0.0, 1.0, (fireIntensity - gradient + 0.3) * intensity);
+                
+                fragColor = vec4(finalColor, fireAlpha * opacity);
             }`;
         
         // Compilation des shaders
@@ -213,7 +214,6 @@ class FireShaderAddon {
             resolution: this.gl.getUniformLocation(this.program, 'resolution'),
             primaryColor: this.gl.getUniformLocation(this.program, 'primaryColor'),
             secondaryColor: this.gl.getUniformLocation(this.program, 'secondaryColor'),
-            backgroundColor: this.gl.getUniformLocation(this.program, 'backgroundColor'),
             intensity: this.gl.getUniformLocation(this.program, 'intensity'),
             speed: this.gl.getUniformLocation(this.program, 'speed'),
             scale: this.gl.getUniformLocation(this.program, 'scale'),
