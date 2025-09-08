@@ -1,8 +1,8 @@
 {
   "metadata": {
     "name": "Fire Shader Effect",
-    "version": "1.3.0",
-    "description": "Effet de feu 100% TRANSPARENT - ZERO background - WebGL alpha pur - 6 paramètres seulement",
+    "version": "1.4.0",
+    "description": "Feu transparent CONSTANT - Même effet sur toutes résolutions - WebGL normalisé",
     "author": "MyWallpaper",
     "type": "effect",
     "categories": ["effect", "animation", "shader", "fire"]

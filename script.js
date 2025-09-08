@@ -74,6 +74,7 @@ class FireShaderAddon {
     resize() {
         if (!this.canvas) return;
         
+        // Utiliser des dimensions normalisées pour un rendu consistent
         const dpr = window.devicePixelRatio || 1;
         const displayWidth = this.canvas.clientWidth * dpr;
         const displayHeight = this.canvas.clientHeight * dpr;
@@ -156,9 +157,15 @@ class FireShaderAddon {
             
             void main() {
                 vec2 st = uv;
-                st.x *= resolution.x / resolution.y; // Correction du ratio d'aspect
                 
-                // Animation du feu qui monte
+                // Coordinates indépendantes de la résolution pour un rendu consistent
+                // Le feu aura toujours la même apparence quelle que soit la taille d'écran
+                
+                // Correction d'aspect ratio seulement (pas d'échelle résolution)
+                float aspectRatio = resolution.x / resolution.y;
+                st.x *= aspectRatio;
+                
+                // Animation du feu avec échelle fixe - même pattern partout
                 vec2 fireCoords = vec2(st.x, st.y - time * speed) * scale;
                 
                 // Gradient de base (plus intense en bas)
