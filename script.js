@@ -181,11 +181,11 @@ class FireShaderAddon {
                 float finalNoise = turbulence * fbm(vec2(noise1, noise2));
                 float fireIntensity = fbm(vec2(noise2, noise1));
                 
-                // Mélange des couleurs basé sur l'intensité
-                vec3 fireColor = mix(secondaryColor, primaryColor, fireIntensity + 0.5);
+                // Mélange des couleurs basé sur l'intensité - contrôle total des couleurs
+                vec3 fireColor = mix(secondaryColor, primaryColor, fireIntensity);
                 
-                // Couleur finale avec gradient et intensité
-                vec3 finalColor = fireColor + vec3(fireIntensity - gradient);
+                // Couleur finale - application du gradient sans ajout de blanc
+                vec3 finalColor = fireColor * (1.0 + (fireIntensity - gradient) * 0.5);
                 
                 // Application de l'intensité globale avec transparence complète
                 finalColor = finalColor * intensity;

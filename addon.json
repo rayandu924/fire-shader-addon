@@ -1,8 +1,8 @@
 {
   "metadata": {
     "name": "Fire Shader Effect",
-    "version": "1.4.0",
-    "description": "Feu transparent CONSTANT - Même effet sur toutes résolutions - WebGL normalisé",
+    "version": "1.5.0",
+    "description": "Contrôle couleur complet - Fini le blanc forcé - Vraies couleurs personnalisées",
     "author": "MyWallpaper",
     "type": "effect",
     "categories": ["effect", "animation", "shader", "fire"]
