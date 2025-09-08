@@ -168,8 +168,8 @@ class FireShaderAddon {
                 // Animation du feu avec échelle fixe - même pattern partout
                 vec2 fireCoords = vec2(st.x, st.y - time * speed) * scale;
                 
-                // Gradient de base (plus intense en bas)
-                float gradient = mix(st.y * 0.6 + 0.1, st.y * 1.2 + 0.9, fbm(fireCoords));
+                // Gradient de base normalisé (évite la surexposition)
+                float gradient = mix(st.y * 0.3, st.y * 0.7, fbm(fireCoords));
                 
                 // Première couche de bruit pour la forme du feu
                 float noise1 = fbm(fireCoords);
@@ -184,8 +184,8 @@ class FireShaderAddon {
                 // Mélange des couleurs basé sur l'intensité - contrôle total des couleurs
                 vec3 fireColor = mix(secondaryColor, primaryColor, fireIntensity);
                 
-                // Couleur finale - application du gradient sans ajout de blanc
-                vec3 finalColor = fireColor * (1.0 + (fireIntensity - gradient) * 0.5);
+                // Couleur finale - modulation douce sans surexposition
+                vec3 finalColor = fireColor * (0.8 + fireIntensity * 0.4 - gradient * 0.2);
                 
                 // Application de l'intensité globale avec transparence complète
                 finalColor = finalColor * intensity;
