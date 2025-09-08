@@ -1,8 +1,8 @@
 {
   "metadata": {
     "name": "Fire Shader Effect",
-    "version": "1.5.1",
-    "description": "VRAIES couleurs sans blanc - Gradient normalisé - Zéro surexposition",
+    "version": "1.6.0",
+    "description": "COULEURS PURES - Gradient = alpha only - ZERO saturation vers blanc",
     "author": "MyWallpaper",
     "type": "effect",
     "categories": ["effect", "animation", "shader", "fire"]

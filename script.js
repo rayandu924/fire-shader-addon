@@ -184,11 +184,8 @@ class FireShaderAddon {
                 // Mélange des couleurs basé sur l'intensité - contrôle total des couleurs
                 vec3 fireColor = mix(secondaryColor, primaryColor, fireIntensity);
                 
-                // Couleur finale - modulation douce sans surexposition
-                vec3 finalColor = fireColor * (0.8 + fireIntensity * 0.4 - gradient * 0.2);
-                
-                // Application de l'intensité globale avec transparence complète
-                finalColor = finalColor * intensity;
+                // Couleur finale PURE - jamais de saturation, jamais de blanc forcé
+                vec3 finalColor = fireColor * intensity;  // Seulement l'intensité utilisateur
                 
                 // Alpha dynamique pour transparence réelle
                 float fireAlpha = smoothstep(0.0, 1.0, (fireIntensity - gradient + 0.3) * intensity);
